@@ -73,6 +73,8 @@ function setupCustomElement(select) {
     select.optionsCustomElement.classList.toggle("show")
   })
 
+  let debounceTimeout
+  let searchTerm = ""
   select.customElement.addEventListener("keydown", e => {
     switch (e.code) {
       case "Space":
@@ -92,6 +94,17 @@ function setupCustomElement(select) {
       case "Escape":
         select.optionsCustomElement.classList.remove("show")
         break
+      default: {
+        clearTimeout(debounceTimeout)
+        searchTerm += e.key
+        debounceTimeout = setTimeout(() => {
+          searchTerm = ""
+        }, 500)
+        const searchedOption = select.options.find(option =>
+          option.label.toLowerCase().startsWith(searchTerm)
+        )
+        if (searchedOption) select.selectValue(searchedOption.value)
+      }
     }
   })
 
