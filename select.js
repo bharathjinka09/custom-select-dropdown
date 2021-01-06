@@ -1,4 +1,4 @@
-class Select {
+export default class Select {
   constructor(element) {
     this.element = element
     this.value = element.value
@@ -78,16 +78,16 @@ function setupCustomElement(select) {
       case "Space":
         select.optionsCustomElement.classList.toggle("show")
         break
-      case "ArrowUp":
+      case "ArrowUp": {
         const prevOption = select.options[select.selectedOptionIndex - 1]
-        console.log(prevOption, select.selectedOptionIndex)
         if (prevOption) select.selectValue(prevOption.value)
         break
-      case "ArrowDown":
+      }
+      case "ArrowDown": {
         const nextOption = select.options[select.selectedOptionIndex + 1]
-        console.log(nextOption, select.selectedOptionIndex)
         if (nextOption) select.selectValue(nextOption.value)
         break
+      }
       case "Enter":
       case "Escape":
         select.optionsCustomElement.classList.remove("show")
